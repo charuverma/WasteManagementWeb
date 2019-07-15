@@ -75,8 +75,8 @@
                   <TableCell>Type</TableCell>
                   <TableCell>File</TableCell>
                   <TableCell>Price</TableCell>
-                  <TableCell>Edit</TableCell>
-                  <TableCell align="right">Delete</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell align="right"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -88,7 +88,7 @@
                     <TableCell><img src={baseurl + item.file} style={styles.Image}/></TableCell>
                     <TableCell>{item.price}</TableCell>
                     <TableCell><Link to={`/productlist/edit/${item.id}`} style={styles.Link}>Edit</Link></TableCell>
-                    <TableCell align="right"><Button style={styles.Button} onClick={() => this.delete(item.id)}>Delete</Button></TableCell>
+                    <TableCell align="right"><Button style={styles.Button} onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.delete(item.id)}}>Delete</Button></TableCell>
                   </TableRow>
                 ))}
               </TableBody>

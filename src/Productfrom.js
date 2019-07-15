@@ -150,7 +150,7 @@ class Productfrom extends React.Component {
             name="weight"
             value={this.state.fields.weight}
             onChange={this.handleChange}
-            label="Weight"
+            label="Weight(kg)"
             fullWidth
             autoComplete="weight"
           />

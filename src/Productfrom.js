@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+const baseurl = "http://192.168.100.22:8000/";
 
 var styles ={
   file:{
@@ -12,6 +13,10 @@ var styles ={
   },
   Typography:{
     color:"#3f51b5"
+  },
+  Image:{
+    width:132,
+    height:101,
   }
 }
 class Productfrom extends React.Component {
@@ -26,7 +31,8 @@ class Productfrom extends React.Component {
         weight:"",
         price:"",
         HSNnumber:"",
-        others:""
+        others:"",
+        oldImage:"",
       }
     }
     this.handleChange = this.handleChange.bind(this);
@@ -77,7 +83,8 @@ class Productfrom extends React.Component {
          weight:data.result.weight,
          price:data.result.price,
          HSNnumber:data.result.HSNnumber,
-         others:data.result.others
+         others:data.result.others,
+         oldImage: data.result.file
        }
      })
    }
@@ -112,7 +119,7 @@ class Productfrom extends React.Component {
             autoComplete="type"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <input
             required
             style={styles.file}
@@ -122,7 +129,9 @@ class Productfrom extends React.Component {
             onChange={this.handleChange}
           />
         </Grid>
-        
+        <Grid item xs={12} sm={2}>
+          {this.state.fields.oldImage && <img src={baseurl + this.state.fields.oldImage} style={styles.Image}/>}
+        </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -163,7 +172,7 @@ class Productfrom extends React.Component {
             required
             type="number"
             name="HSNnumber"
-            value={this.state.fieldsHSNnumber}
+            value={this.state.fields.HSNnumber}
             onChange={this.handleChange}
             label="HSN Number"
             fullWidth

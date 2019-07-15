@@ -93,17 +93,8 @@ const useStyles = makeStyles(theme => ({
 
 const Main =() =>{
 const classes = useStyles();
-const [open, setOpen] = React.useState(true);
-const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
- 
-
-  return(
+const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+ return(
  <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>

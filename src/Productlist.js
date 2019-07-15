@@ -1,5 +1,4 @@
   import React from 'react';
-  import { withStyles, makeStyles } from '@material-ui/core/styles';
   import Table from '@material-ui/core/Table';
   import TableBody from '@material-ui/core/TableBody';
   import Button from '@material-ui/core/Button';
@@ -24,6 +23,9 @@
     Image:{
       width:160,
       height:140
+    },
+    Link:{
+      textDecoration:'none',
     }
   }
 
@@ -85,7 +87,7 @@
                     <TableCell>{item.type}</TableCell>
                     <TableCell><img src={baseurl + item.file} style={styles.Image}/></TableCell>
                     <TableCell>{item.price}</TableCell>
-                    <TableCell><Link to={`/productlist/edit/${item.id}`}>Edit</Link></TableCell>
+                    <TableCell><Link to={`/productlist/edit/${item.id}`} style={styles.Link}>Edit</Link></TableCell>
                     <TableCell align="right"><Button style={styles.Button} onClick={() => this.delete(item.id)}>Delete</Button></TableCell>
                   </TableRow>
                 ))}

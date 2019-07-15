@@ -1,0 +1,25 @@
+
+*{
+  margin:0px;
+  padding:0px;
+}
+ul{
+  height:80px;
+  width:100%;
+  background-color:#FFCA33;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 20px;
+}
+ul li {
+    list-style: none;
+    text-transform: uppercase;
+}
+.about{
+  height:100px;
+  width:100%;
+  background-color:#DAFF33;
+  padding-left: 485px;
+
+}

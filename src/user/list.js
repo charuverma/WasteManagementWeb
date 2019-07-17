@@ -46,14 +46,14 @@ var styles = {
 	}
 };
 
-class CategoryList extends React.Component {
+class userList extends React.Component {
 	state = {
 		data: []
 	};
 	async componentDidMount() {
 		var options = {
 			method: "POST",
-			url: ApiUrl + "category/list",
+			url: ApiUrl + "user/list",
 			data: {}
 		};
 		const { data } = await axios(options);
@@ -62,16 +62,16 @@ class CategoryList extends React.Component {
 		});
 	}
 	async delete(id) {
-		var option = {
-			method: "POST",
-			url:  ApiUrl + "category/delete",
-			data: { id }
-		};
-		await axios(option);
-		this.setState({
-			data: this.state.data.filter(item => item.id !== id)
-		});
-	}
+        var option = {
+          method: "POST",
+          url: ApiUrl + "user/delete",
+          data: { id }
+        };
+        await axios(option);
+        this.setState({
+          data: this.state.data.filter(item => item.id !== id)
+        });
+      }
 	render() {
 		return (
 			<React.Fragment>
@@ -84,13 +84,13 @@ class CategoryList extends React.Component {
 							noWrap
 							style={styles.Typography}
 							>
-							Category Details
+							User Details
 						</Typography>
 		  			</Grid>
 					  <Grid item xs={12} sm={1}>
 		  				<IconButton color="inherit">
 							<Badge color="secondary">
-								<Link to="../category/add">
+								<Link to="../user/add">
 									<AddCircle/>
 								</Link>
 							</Badge>
@@ -100,10 +100,11 @@ class CategoryList extends React.Component {
 						<TableHead>
 							<TableRow>
 								<TableCell>Id</TableCell>
-								<TableCell>ParentId</TableCell>
+								<TableCell>Role</TableCell>
 								<TableCell>Name</TableCell>
+                                <TableCell>Email Id</TableCell>
+                                <TableCell>Mobile Number</TableCell>
 								<TableCell>Status</TableCell>
-								<TableCell>File</TableCell>
 								<TableCell></TableCell>
 							</TableRow>
 						</TableHead>
@@ -111,18 +112,15 @@ class CategoryList extends React.Component {
 							{this.state.data.map(item => (
 								<TableRow key={item.id}>
 									<TableCell>{item.id}</TableCell>
-									<TableCell>{item.Parent}</TableCell>
+									<TableCell>{item.role}</TableCell>
 									<TableCell>{item.name}</TableCell>
+                                    <TableCell>{item.emailid}</TableCell>
+                                    <TableCell>{item.mobile}</TableCell>
 									<TableCell>{item.status ? 'Active' : 'Inactive'}</TableCell>
-									<TableCell>
-										<img
-											src={baseurl + item.file}
-											style={styles.Image}
-										/>
-									</TableCell>
+					
 									<TableCell>
 										<Link
-                     						 to={`/category/edit/${item.id}`}
+                     						 to={`/user/edit/${item.id}`}
 										>
 											<Create style={styles.Edit}/>
 										</Link>
@@ -146,4 +144,4 @@ class CategoryList extends React.Component {
 		);
 	}
 }
-export default CategoryList;
+export default userList;

@@ -25,14 +25,16 @@ var styles = {
 		height: 50
 	},
 	select: {
-		width: 459
+		width: 500
 	}
 };
 class Productfrom extends React.Component {
 	constructor() {
 		super();
 		this.state = {
+			loading:true,
 			fields: {
+				id:"",
 				name: "",
 				type: "",
 				desc: "",
@@ -92,17 +94,15 @@ class Productfrom extends React.Component {
 				}
 			};
 			const { data } = await axios(options);
-			fields = {
-				id: data.result.id,
-				name: data.result.name,
-				type: data.result.type,
-				qty: data.result.qty,
-				weight: data.result.weight,
-				price: data.result.price,
-				HSNnumber: data.result.HSNnumber,
-				others: data.result.others,
-				oldImage: data.result.file
-			};
+				fields.id = data.result.id;
+				fields.name =  data.result.name;
+				fields.type =  data.result.type;
+				fields.qty =  data.result.qty;
+				fields.weight =  data.result.weight;
+				fields.price =  data.result.price;
+				fields.HSNnumber =  data.result.HSNnumber;
+				fields.others =  data.result.others;
+				fields.oldImage =  data.result.file;
 		}
 
 		var category = {
@@ -113,11 +113,13 @@ class Productfrom extends React.Component {
 
 		const { data: categories } = await axios(category);
 		this.setState({
+			loading:false,
 			fields,
 			categories: categories.result
 		});
 	}
 	render() {
+		if(this.state.loading) return 'loading...';
 		return (
 			<React.Fragment>
 				<Typography variant="h6" gutterBottom style={styles.Typography}>
@@ -217,7 +219,7 @@ class Productfrom extends React.Component {
 						</Grid>
 						<Grid item xs={12} sm={4}>
 							<input
-								required
+								required={!this.state.fields.oldImage}
 								style={styles.file}
 								id="Proimage"
 								type="file"

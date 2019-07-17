@@ -11,7 +11,10 @@ import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import categoryform from "../category/form";
-import Role from "../Role/form";
+import rolelist from '../Role/list';
+import role from "../Role/form";
+import user from '../user/form';
+import userList from '../user/list';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -134,7 +137,27 @@ const Main = () => {
 								/>
 								<Route
 									path="/role/add"
-									component={Role}
+									component={role}
+								/>
+								<Route
+									path="/role/edit/:id"
+									component={role}
+								/>
+								<Route
+									path="/role"
+									component={rolelist}
+								/>
+								<Route
+									path="/user/add"
+									component={user}
+								/>
+								<Route
+									path="/user/edit/:id"
+									component={user}
+								/>
+								<Route
+									path="/user"
+									component={userList}
 								/>
 							</Switch>
 						</Paper>

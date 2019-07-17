@@ -25,11 +25,11 @@ var styles = {
 		height: 50
 	},
 	select: {
-		width: 459
+		width: 480
 	},
 	textarea: {
 		height: 48,
-		width: 483
+		width: 453
   },
   textField: {
     width: 480,
@@ -39,7 +39,9 @@ class Categoryform extends React.Component {
 	constructor() {
 		super();
 		this.state = {
+			loading:false,
 			fields: {
+				id:"",
 				name: "",
 				parentId: "",
 				slug: "",
@@ -47,7 +49,7 @@ class Categoryform extends React.Component {
 				metatitle: "",
 				metadesc: "",
 				metakeyword: "",
-				Status: false,
+				status: false,
 				oldImage: ""
 			},
 			data: []
@@ -83,7 +85,8 @@ class Categoryform extends React.Component {
 			url: ApiUrl + "category/save",
 			data: formdata
 		};
-		await axios(option);
+		const data = await axios(option);
+		console.log(data);
 		alert("Category Form Submitted");
 		window.location.href = "/category";
 	}
@@ -94,9 +97,8 @@ class Categoryform extends React.Component {
 			data: {}
 		};
 		const { data } = await axios(option);
-		this.setState({
-			data: data.result
-		});
+
+		const fields={...this.state.fields};
 		if (this.props.match.params.id) {
 			var options = {
 				method: "POST",
@@ -105,25 +107,27 @@ class Categoryform extends React.Component {
 					id: this.props.match.params.id
 				}
 			};
-			const { data } = await axios(options);
-			this.setState({
-				fields: {
-					id: data.result.id,
-					name: data.result.name,
-					parentId: data.result.parentId,
-					slug: data.result.slug,
-					desc: data.result.desc,
-					metatitle: data.result.metatitle,
-					metadesc: data.result.metadesc,
-					metakeyword: data.result.metakeyword,
-					Status: data.result.Status,
-					oldImage: data.result.file
-				}
-			});
+			const { data: category } = await axios(options);
+			fields.id = category.result.id;
+			fields.name = category.result.name;
+			fields.parentId =  category.result.parentId;
+			fields.slug =  category.result.slug;
+			fields.desc =  category.result.desc;
+			fields.metatitle =  category.result.metatitle;
+			fields.metadesc =  category.result.metadesc;
+			fields.metakeyword =  category.result.metakeyword;
+			fields.status =  category.result.status;
+			fields.oldImage =  category.result.file;
 		}
+		this.setState({
+			fields,
+			loading: false,
+			data: data.result,
+		});
 	}
 	
 	render() {
+		if(this.state.loading) return 'loading...';
 		return (
 			<React.Fragment>
 				<Typography variant="h6" gutterBottom style={styles.Typography}>
@@ -173,6 +177,17 @@ class Categoryform extends React.Component {
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<TextField
+								required
+								name="metatitle"
+								value={this.state.fields.metatitle}
+								onChange={this.handleChange}
+								label="Meta Title"
+								fullWidth
+								autoComplete="metatitle"
+							/>
+						</Grid>
+						<Grid item xs={12} sm={6}>
+							<TextField
 							id="standard-multiline-flexible"
 							label="Description"
 							multiline
@@ -182,17 +197,6 @@ class Categoryform extends React.Component {
 							onChange={this.handleChange}
 							style={styles.textField}
 							margin="normal"
-							/>
-						</Grid>
-						<Grid item xs={12} sm={6}>
-							<TextField
-								required
-								name="metatitle"
-								value={this.state.fields.metatitle}
-								onChange={this.handleChange}
-								label="Meta Title"
-								fullWidth
-								autoComplete="metatitle"
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
@@ -226,11 +230,11 @@ class Categoryform extends React.Component {
 								control={
 									<Checkbox
 										value="1"
-										name="Status"
-										checked={this.state.fields.Status}
+										name="status"
+										checked={this.state.fields.status}
 										onChange={this.handleChange}
 										color="primary"
-										autoComplete="Status"
+										autoComplete="status"
 									/>
 								}
 								label="Check me out"
@@ -238,7 +242,7 @@ class Categoryform extends React.Component {
 						</Grid>
 						<Grid item xs={12} sm={4}>
 							<input
-								required
+								required={!this.state.fields.oldImage}
 								style={styles.file}
 								type="file"
 								id='catimage'

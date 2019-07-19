@@ -79,7 +79,6 @@ class Productfrom extends React.Component {
 			data: formdata
 		};
 		await axios(option);
-		alert("Product Form Submitted");
 		window.location.href = "/product";
 	}
 

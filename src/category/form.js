@@ -87,7 +87,6 @@ class Categoryform extends React.Component {
 		};
 		const data = await axios(option);
 		console.log(data);
-		alert("Category Form Submitted");
 		window.location.href = "/category";
 	}
 	async componentDidMount() {

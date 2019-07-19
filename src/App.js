@@ -7,17 +7,15 @@ import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 
 function App() {
-	return (
-		<BrowserRouter>
-			<div>
-				<Switch>
-					<Route path="/" exact component={Login} />
-					<Route path="/signup" component={Signup} />
-					<Layout />
-				</Switch>
-			</div>
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Layout />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -10,7 +10,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import Link from '@material-ui/core/Link';
+
+import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
@@ -24,8 +25,9 @@ const useStyles = makeStyles(theme => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
-  Link:{
+  link:{
     textDecoration: 'none',
+    color: "#3f51b5",
   },
 }));
 
@@ -43,12 +45,13 @@ export default function NestedList() {
       aria-labelledby="nested-list-subheader"
       className={classes.root}
     >
+       <Link to="/dashboard" className={classes.link}>
       <ListItem button>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
-        <Link href="/Dashboard" className={classes.Link}><ListItemText primary="Dashboard"/></Link>
-      </ListItem>
+       <ListItemText primary="Dashboard"/>
+      </ListItem></Link>
       <ListItem button onClick={handleClick}>
         <ListItemIcon>
           <InboxIcon />
@@ -58,34 +61,37 @@ export default function NestedList() {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
+        <Link to="/role" className={classes.link}>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <Link href="/role" className={classes.Link}>
-            <ListItemText primary="Role" /></Link>
-          </ListItem>
+            <ListItemText primary="Role" />
+          </ListItem></Link>
+          <Link to="/user" className={classes.link}>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
-            <Link href="/user" className={classes.Link}>
-            <ListItemText primary="User" /></Link>
-          </ListItem>
+            <ListItemText primary="User" />
+          </ListItem></Link>
         </List>
       </Collapse>
+      <Link to="/category" className={classes.link}>
       <ListItem button>
         <ListItemIcon>
           <ChromeReaderMode />
         </ListItemIcon>
-        <Link href="/category" className={classes.Link}><ListItemText primary="Category" /></Link>
+       <ListItemText primary="Category" />
       </ListItem>
+      </Link>
+      <Link to="/product" className={classes.link}>
       <ListItem button>
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-         <Link href="/product" className={classes.Link}><ListItemText  primary="Product"/></Link>
-      </ListItem>
+        <ListItemText  primary="Product"/>
+      </ListItem></Link>
     </List>
   );
 }

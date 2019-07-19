@@ -6,6 +6,8 @@ import Button from "@material-ui/core/Button";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import axios from "axios";
+import { ApiUrl } from "../config";
+
 var styles = {
   file: {
     marginTop: 17,
@@ -47,9 +49,10 @@ class Role extends React.Component {
   }
   async submit(e) {
     e.preventDefault();
+    console.log(this.state.fields);
     var options = {
       method: "POST",
-      url: "http://localhost:8000/role/save",
+      url: ApiUrl + "role/save",
       data: {
         id: this.state.fields.id,
         name: this.state.fields.name,
@@ -57,7 +60,6 @@ class Role extends React.Component {
       }
     };
     const data = await axios(options);
-    alert("Role Added");
     window.location.href = "/role";
   }
   async componentDidMount() {
@@ -65,7 +67,7 @@ class Role extends React.Component {
     if (this.props.match.params.id) {
       var option = {
         method: "POST",
-        url: "http://localhost:8000/role/get",
+        url:  ApiUrl +"role/get",
         data: {
           id: this.props.match.params.id
         }

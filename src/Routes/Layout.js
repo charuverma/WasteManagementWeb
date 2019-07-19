@@ -14,9 +14,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsPower from "@material-ui/icons/SettingsPower";
 import NestedList from "./listItems";
-import { Link } from "react-router-dom";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Main from './Main';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -102,8 +103,12 @@ const useStyles = makeStyles(theme => ({
     height: 500
   }
 }));
-
+function logout() {
+  cookies.remove('emailid');
+  window.location.href="/";
+}
 export default function Sidebar() {
+   
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -112,6 +117,12 @@ export default function Sidebar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+ 
+  if(!cookies.get('emailid') || cookies.get('emailid')===''){
+    window.location.href="/";
+  }
+  else{
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -143,9 +154,7 @@ export default function Sidebar() {
           </Typography>
           <IconButton color="inherit">
 						<Badge color="secondary">
-							<Link to ="/" className={classes.Link}>
-							<SettingsPower/>
-							</Link>
+							<SettingsPower onClick={() => logout()}/>
 						</Badge>
 					</IconButton>
           <IconButton color="inherit">
@@ -173,4 +182,5 @@ export default function Sidebar() {
       <Main/>
     </div>
   );
+   }
 }
